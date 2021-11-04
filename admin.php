@@ -26,10 +26,10 @@
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
-   <style>
-    #weatherWidget .currentDesc {
-        color: #ffffff!important;
-    }
+    <style>
+        #weatherWidget .currentDesc {
+            color: #ffffff!important;
+        }
         .traffic-chart {
             min-height: 335px;
         }
@@ -51,17 +51,17 @@
             padding-bottom: 10px;
         }
         #flotLine5  {
-             height: 105px;
-        }
+         height: 105px;
+     }
 
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
-        }
+     #flotBarChart {
+        height: 150px;
+    }
+    #cellPaiChart{
+        height: 160px;
+    }
 
-    </style>
+</style>
 </head>
 
 <body>
@@ -234,6 +234,8 @@
         <!-- Content -->
         <div class="content">
             <?php
+        
+
             if (isset($_GET['halaman'])) 
             {
                 if ($_GET['halaman']=='pembayaran') 
@@ -248,6 +250,7 @@
             }
             ?>
         </div>
+
         <!-- /.content -->
         
         <!-- Footer -->
@@ -288,9 +291,9 @@
 
             // Pie chart flotPie1
             var piedata = [
-                { label: "Desktop visits", data: [[1,32]], color: '#5c6bc0'},
-                { label: "Tab visits", data: [[1,33]], color: '#ef5350'},
-                { label: "Mobile visits", data: [[1,35]], color: '#66bb6a'}
+            { label: "Desktop visits", data: [[1,32]], color: '#5c6bc0'},
+            { label: "Tab visits", data: [[1,33]], color: '#ef5350'},
+            { label: "Mobile visits", data: [[1,35]], color: '#66bb6a'}
             ];
 
             $.plot('#flotPie1', piedata, {
@@ -317,8 +320,8 @@
             // Pie chart flotPie1  End
             // cellPaiChart
             var cellPaiChart = [
-                { label: "Direct Sell", data: [[1,65]], color: '#5b83de'},
-                { label: "Channel Sell", data: [[1,35]], color: '#00bfa5'}
+            { label: "Direct Sell", data: [[1,65]], color: '#5b83de'},
+            { label: "Channel Sell", data: [[1,35]], color: '#00bfa5'}
             ];
             $.plot('#cellPaiChart', cellPaiChart, {
                 series: {
@@ -374,13 +377,38 @@
             });
             // Line Chart  #flotLine5 End
             // Traffic Chart using chartist
+            
+            <?php
+            include 'koneksi.php';
+             $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 0 AND 0 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $senin= $ambil->num_rows;
+            ?>
+            <?php
+            $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 1 AND 1 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $selasa= $ambil->num_rows;
+            ?>
+            <?php
+            $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 2 AND 2 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $rabu= $ambil->num_rows;
+            ?>
+            <?php
+            $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 3 AND 3 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $kamis= $ambil->num_rows;
+            ?>
+            <?php
+            $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 4 AND 4 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $jumat= $ambil->num_rows;
+            ?>
+            <?php
+            $ambil=$koneksi->query("SELECT * FROM pembayaran WHERE WEEKDAY(CONCAT(tgl_bayar)) BETWEEN 5 AND 5 AND WEEK(CONCAT(tgl_bayar)) = WEEK(now())");
+            $sabtu= $ambil->num_rows;
+            ?>
+
             if ($('#traffic-chart').length) {
                 var chart = new Chartist.Line('#traffic-chart', {
-                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                  labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
                   series: [
-                  [0, 18000, 35000,  25000,  22000,  0],
-                  [0, 33000, 15000,  20000,  15000,  300],
-                  [0, 15000, 28000,  15000,  30000,  5000]
+                  [<?php echo $senin?>,<?php echo $selasa?> , <?php echo $rabu?>,  <?php echo $kamis?>,  <?php echo $jumat?>,  <?php echo $sabtu?>]
                   ]
               }, {
                   low: 0,
