@@ -480,66 +480,79 @@
   <div class="container">
     <div class="container__forms">
       <div class="form">
-        <form action="" class="form__sign-in">
+        <form method="post" action="" class="form__sign-in">
           <h2 class="form__title">Login</h2>
           <div class="form__input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nama Pengguna" required />
+            <input type="text" name="username" placeholder="Nama Pengguna" required />
         </div>
         <div class="form__input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Kata Sandi" required />
+            <input name="password" type="password" placeholder="Kata Sandi" required />
         </div>
-        <input class="form__submit" type="submit" value="Login" />
-        <p class="form__social-text">Or Sign in with social platforms</p>
-        <div class="form__social-media">
-            <a href="#" class="form__social-icons">
-              <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="form__social-icons">
-              <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="form__social-icons">
-              <i class="fab fa-google"></i>
-          </a>
-          <a href="#" class="form__social-icons">
-              <i class="fab fa-linkedin-in"></i>
-          </a>
-      </div>
-  </form>
+        <button name="submit" class="form__submit">Login</button>
+    </form>
+    <?php
+    include "koneksi.php";
 
-  <form action="" class="form__sign-up">
-      <h2 class="form__title">Sign Up</h2>
-      <div class="form__input-field">
-        <i class="fas fa-user"></i>
-        <input type="text" placeholder="Username" required />
-    </div>
-    <div class="form__input-field">
-        <i class="fas fa-envelope"></i>
-        <input type="text" placeholder="Email" required />
-    </div>
-    <div class="form__input-field">
-        <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Password" required />
-    </div>
+    if( isset( $_REQUEST['submit'] ) ){
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
 
-    <input class="form__submit" type="submit" value="Sign Up" />
+        $sql = mysqli_query($koneksi,"SELECT iduser,username,admin,fullname FROM user WHERE username='$username' AND password=md5('$password')");
 
-    <p class="form__social-text">Or Sign up with social platforms</p>
-    <div class="form__social-media">
-        <a href="#" class="form__social-icons">
-          <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="#" class="form__social-icons">
-          <i class="fab fa-twitter"></i>
-      </a>
-      <a href="#" class="form__social-icons">
-          <i class="fab fa-google"></i>
-      </a>
-      <a href="#" class="form__social-icons">
-          <i class="fab fa-linkedin-in"></i>
-      </a>
-  </div>
+        if( mysqli_num_rows($sql) > 0 ){
+          list($iduser,$username,$admin,$fullname) = mysqli_fetch_array($sql);
+
+            //session_start();
+          $_SESSION['iduser'] = $iduser;
+          $_SESSION['username'] = $username;
+          $_SESSION['admin'] = $admin;
+          $_SESSION['fullname'] = $fullname;
+
+          echo "<script>location='admin.php'</script>";     
+      } else 
+      {
+        echo "<script>alert('Username Atau Password Anda Salah')</script>";
+        echo "<script>location='index.php'</script>";     
+    }
+
+}
+?>
+
+
+<form action="" class="form__sign-up">
+  <h2 class="form__title">Sign Up</h2>
+  <div class="form__input-field">
+    <i class="fas fa-user"></i>
+    <input type="text" placeholder="Username" required />
+</div>
+<div class="form__input-field">
+    <i class="fas fa-envelope"></i>
+    <input type="text" placeholder="Email" required />
+</div>
+<div class="form__input-field">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="Password" required />
+</div>
+
+<input class="form__submit" type="submit" value="Sign Up" />
+
+<p class="form__social-text">Or Sign up with social platforms</p>
+<div class="form__social-media">
+    <a href="#" class="form__social-icons">
+      <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="#" class="form__social-icons">
+      <i class="fab fa-twitter"></i>
+  </a>
+  <a href="#" class="form__social-icons">
+      <i class="fab fa-google"></i>
+  </a>
+  <a href="#" class="form__social-icons">
+      <i class="fab fa-linkedin-in"></i>
+  </a>
+</div>
 </form>
 </div>
 </div>
@@ -548,9 +561,9 @@
     <div style="margin-bottom: 10px"  class="panel__content">
       <h3 class="panel__title">Pengguna Baru ?</h3>
       <p class="panel__paragraph">
-       Platform untuk untuk membayar keperluan sekolah dari aplikasi pembayaran Spp.
-    </p>
-    <button class="btn btn-transparent" id="sign-up-btn">
+         Platform untuk untuk membayar keperluan sekolah dari aplikasi pembayaran Spp.
+     </p>
+     <button class="btn btn-transparent" id="sign-up-btn">
         Daftar
     </button>
 </div>
@@ -567,7 +580,7 @@
         Sign In
     </button>
 </div>
-<img class="panel__image" src="https://www.pngkey.com/png/full/444-4444270_ia-press-play-website.png" alt="" />
+<img height="390" class="panel__image" src="images/logo.png" alt="" />
 </div>
 </div>
 </div>
