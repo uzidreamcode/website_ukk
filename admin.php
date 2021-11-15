@@ -84,7 +84,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="admin.php?halaman=rekap">Rekap Pembayaran</a></li>
-                            <li><i class="fa fa-table"></i><a href="admin.php?halaman=cetak">Cetak Tagihan</a></li>
+                            <li><i class="fa fa-table"></i><a href="admin.php?halaman=cetak_tagihan">Cetak Tagihan</a></li>
                         </ul>
                     </li>
                     
@@ -93,17 +93,17 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Data</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Jurusan</a></li>
-                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Siswa</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Kelas</a></li>
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="admin.php?halaman=jurusan">Jurusan</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="admin.php?halaman=siswa">Siswa</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="admin.php?halaman=kelas">Kelas</a></li>
                         </ul>
                     </li>   
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Pengaturan</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="admin.php?halaman=jenis">Jenis Bayar</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="admin.php?halaman=user">user</a></li>
                         </ul>
                     </li>
                     
@@ -242,6 +242,72 @@
                 {
                     include 'pembayaran.php';
                 }
+                elseif ($_GET['halaman']=='cetak') 
+                {
+                    include 'cetak.php';
+                }
+                elseif ($_GET['halaman']=='cetak_bulan') 
+                {
+                    include 'cetak_bulan.php';
+                }
+                elseif ($_GET['halaman']=='rekap') 
+                {
+                    include 'rekap.php';
+                }
+                elseif ($_GET['halaman']=='cetak_tagihan') 
+                {
+                    include 'cetak_tagihan.php';
+                }
+                elseif ($_GET['halaman']=='jurusan') 
+                {
+                    include 'jurusan.php';
+                }
+                elseif ($_GET['halaman']=='kelas') 
+                {
+                    include 'kelas.php';
+                }
+                elseif ($_GET['halaman']=='edit_jurusan') 
+                {
+                    include 'edit_jurusan.php';
+                }
+                elseif ($_GET['halaman']=='hapus_jurusan') 
+                {
+                   include 'hapus_jurusan.php';
+                }
+                elseif ($_GET['halaman']=='siswa') 
+                {
+                    include 'siswa.php';
+                }
+                 elseif ($_GET['halaman']=='edit_siswa') 
+                {
+                    include 'siswa_edit.php';
+                }
+                elseif ($_GET['halaman']=='siswa_hapus') 
+                {
+                    include 'siswa_hapus.php';
+                }
+                 elseif ($_GET['halaman']=='tambah_kelas') 
+                {
+                    include 'tambah_kelas.php';
+                }
+                elseif ($_GET['halaman']=='hapus_kelas') 
+                {
+                    include 'hapus_kelas.php';
+                }
+                elseif ($_GET['halaman']=='jenis') 
+                {
+                    include 'jenis.php';
+                }
+                elseif ($_GET['halaman']=='user') 
+                {
+                    include 'user.php';
+                }
+                elseif ($_GET['halaman']=='hapus_jenis') 
+                {
+                    include 'hapus_jenis.php';
+                }
+
+
 
             }
             else
